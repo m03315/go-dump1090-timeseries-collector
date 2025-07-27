@@ -83,6 +83,12 @@ The project is actively being developed. Future plans include:
 
 * Advanced Data Processing: Implementing optional filters or transformations for the data stream before it's ingested.
 
+## Documentation
+
+For a detailed breakdown of the data formats handled by this project, including the SBS-1 and BST file formats, please see our dedicated documentation:
+
+* [Socket Data and BST File Formats](docs/sbs-bst-formats.md)
+
 ## Contributing
 We welcome contributions from the community!
 
@@ -93,4 +99,4 @@ We welcome contributions from the community!
 * Pull Requests: Feel free to submit pull requests for bug fixes, new features, or improvements to the documentation.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License — see the [LICENSE file](LICENSE) for details.
