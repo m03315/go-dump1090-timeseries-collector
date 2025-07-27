@@ -72,6 +72,49 @@ go run main.go
 
 The program will connect to your dump1090 server, start collecting and parsing messages, and write them in batches to your specified InfluxDB instance.
 
+## Deployment
+
+This project can be easily deployed using Docker or Podman, providing a consistent and isolated environment for the `go-dump1090-timeseries-collector`.
+
+### Building the Docker/Podman Image
+
+First, navigate to the root of the project directory where the `Dockerfile` is located.
+
+```bash
+docker build -t go-dump1090-collector:latest .
+```
+Or with Podman:
+
+```bash
+ podman build -t go-dump1090-collector:latest .
+```
+
+### Running the Container
+The collector requires several environment variables for configuration. Make sure to replace the placeholder values with your actual setup details.
+```bash
+  docker run -d \
+    --name dump1090-collector \
+    --env DUMP1090_HOST="your.dump1090.server.ip" \
+    --env DUMP1090_PORT="30003" \
+    --env INFLUX_URL="[http://your.influxdb.ip:8086](http://your.influxdb.ip:8086)" \
+    --env INFLUXDB_TOKEN="YOUR_INFLUXDB_TOKEN" \
+    --env INFLUXDB_DATABASE="your-bucket" \
+    go-dump1090-collector:latest
+```
+
+ Or with Podman:
+
+```bash
+  podman run -d \
+    --name dump1090-collector \
+    --env DUMP1090_HOST="your.dump1090.server.ip" \
+    --env DUMP1090_PORT="30003" \
+    --env INFLUX_URL="[http://your.influxdb.ip:8086](http://your.influxdb.ip:8086)" \
+    --env INFLUXDB_TOKEN="YOUR_INFLUXDB_TOKEN" \
+    --env INFLUXDB_DATABASE="your-bucket" \
+    go-dump1090-collector:latest
+```
+
 ## Roadmap
 The project is actively being developed. Future plans include:
 
