@@ -76,43 +76,60 @@ The program will connect to your dump1090 server, start collecting and parsing m
 
 This project can be easily deployed using Docker or Podman, providing a consistent and isolated environment for the `go-dump1090-timeseries-collector`.
 
-### Building the Docker/Podman Image
+### Using Pre-built Images (Recommended)
 
-First, navigate to the root of the project directory where the `Dockerfile` is located.
+Pre-built Docker images are automatically published to GitHub Container Registry. This is the easiest way to get started:
+
+```bash
+# Pull the latest version
+docker pull ghcr.io/m03315/go-dump1090-timeseries-collector:latest
+
+# Or pull a specific version
+docker pull ghcr.io/m03315/go-dump1090-timeseries-collector:v1.0.0
+```
+
+**Run the pre-built image:**
+```bash
+docker run -d \
+  --name dump1090-collector \
+  --env DUMP1090_HOST="your.dump1090.server.ip" \
+  --env DUMP1090_PORT="30003" \
+  --env INFLUX_URL="http://your.influxdb.ip:8086" \
+  --env INFLUXDB_TOKEN="YOUR_INFLUXDB_TOKEN" \
+  --env INFLUXDB_DATABASE="your-bucket" \
+  ghcr.io/m03315/go-dump1090-timeseries-collector:latest
+```
+
+Or with Podman:
+```bash
+podman run -d \
+  --name dump1090-collector \
+  --env DUMP1090_HOST="your.dump1090.server.ip" \
+  --env DUMP1090_PORT="30003" \
+  --env INFLUX_URL="http://your.influxdb.ip:8086" \
+  --env INFLUXDB_TOKEN="YOUR_INFLUXDB_TOKEN" \
+  --env INFLUXDB_DATABASE="your-bucket" \
+  ghcr.io/m03315/go-dump1090-timeseries-collector:latest
+```
+
+### Building Your Own Image
+
+If you prefer to build the image yourself or need to make modifications:
 
 ```bash
 docker build -t go-dump1090-collector:latest .
 ```
-Or with Podman:
 
+Then run with your custom image:
 ```bash
- podman build -t go-dump1090-collector:latest .
-```
-
-### Running the Container
-The collector requires several environment variables for configuration. Make sure to replace the placeholder values with your actual setup details.
-```bash
-  docker run -d \
-    --name dump1090-collector \
-    --env DUMP1090_HOST="your.dump1090.server.ip" \
-    --env DUMP1090_PORT="30003" \
-    --env INFLUX_URL="[http://your.influxdb.ip:8086](http://your.influxdb.ip:8086)" \
-    --env INFLUXDB_TOKEN="YOUR_INFLUXDB_TOKEN" \
-    --env INFLUXDB_DATABASE="your-bucket" \
-    go-dump1090-collector:latest
-```
-
- Or with Podman:
-
-```bash
-  podman run -d \
-    --name dump1090-collector \
-    --env DUMP1090_HOST="your.dump1090.server.ip" \
-    --env DUMP1090_PORT="30003" \
-    --env INFLUX_URL="[http://your.influxdb.ip:8086](http://your.influxdb.ip:8086)" \
-    --env INFLUXDB_TOKEN="YOUR_INFLUXDB_TOKEN" \
-    --env INFLUXDB_DATABASE="your-bucket" \
-    go-dump1090-collector:latest
+docker run -d \
+  --name dump1090-collector \
+  --env DUMP1090_HOST="your.dump1090.server.ip" \
+  --env DUMP1090_PORT="30003" \
+  --env INFLUX_URL="http://your.influxdb.ip:8086" \
+  --env INFLUXDB_TOKEN="YOUR_INFLUXDB_TOKEN" \
+  --env INFLUXDB_DATABASE="your-bucket" \
+  go-dump1090-collector:latest
 ```
 
 ## Roadmap
